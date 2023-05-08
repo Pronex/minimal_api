@@ -11,22 +11,21 @@ sys.path.append("..")  # adds higher directory to python modules path
 
 import structlog
 
-from config import initialize_global_config, GLOBAL_CONFIG
-
-from random import randint
-
-from fastapi.testclient import TestClient
-
-from api import app
-
 log = structlog.get_logger()  # logging
-initialize_global_config()  # initialize global config
 
 # check environment variables
 log.debug("--------------------")
 log.debug("ENVIRONMENT VARIABLES:")
 for env in os.environ:
     log.debug(f"ENV: {env}={os.environ[env]}")
+
+from config import initialize_global_config, GLOBAL_CONFIG
+
+from fastapi.testclient import TestClient
+
+from api import app
+
+initialize_global_config()  # initialize global config
 
 # check global config
 log.debug(f"GLOBAL_CONFIG: {GLOBAL_CONFIG.__dict__}")
