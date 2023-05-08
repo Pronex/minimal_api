@@ -1,0 +1,77 @@
+name: QA
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  python-version: "3.10"
+
+jobs:
+  unittest_and_sonarqube_Linux:
+    name: tox & SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python-version }}
+      - name: Install tox and any other packages
+        run: pip install tox
+      - name: Run tests & pylint
+        run: tox
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  pylint:
+    name: pylint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python-version }}
+      - name: Install tox and any other packages
+        run: pip install tox
+      - name: Run pylint
+        run: tox -e pylint
+  yapf:
+    name: yapf
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python-version }}
+      - name: Install tox and any other packages
+        run: pip install tox
+      - name: Run yapf
+        run: tox -e yapf
+  mypy:
+    name: mypy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python-version }}
+      - name: Install tox and any other packages
+        run: pip install tox
+      - name: Run mypy
+        run: tox -e mypy
