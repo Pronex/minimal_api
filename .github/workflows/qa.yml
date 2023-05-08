@@ -13,6 +13,7 @@ jobs:
   unittest_and_sonarqube_Linux:
     name: tox & SonarCloud
     runs-on: ubuntu-latest
+    environment: qa_env
     steps:
       - uses: actions/checkout@v3
         with:
@@ -25,6 +26,9 @@ jobs:
         run: pip install tox
       - name: Run tests & pylint
         run: tox
+        env:
+          UNAME: ${{ secrets.UNAME }}
+          PWORD: ${{ secrets.PWORD }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -33,6 +37,7 @@ jobs:
   pylint:
     name: pylint
     runs-on: ubuntu-latest
+    environment: qa_env
     steps:
       - uses: actions/checkout@v3
         with:
@@ -48,6 +53,7 @@ jobs:
   yapf:
     name: yapf
     runs-on: ubuntu-latest
+    environment: qa_env
     steps:
       - uses: actions/checkout@v3
         with:
@@ -63,6 +69,7 @@ jobs:
   mypy:
     name: mypy
     runs-on: ubuntu-latest
+    environment: qa_env
     steps:
       - uses: actions/checkout@v3
         with:
