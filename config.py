@@ -7,7 +7,7 @@ import inspect
 import os
 import sys
 
-from typing import Any, Optional
+from typing import Any
 
 import yaml
 
