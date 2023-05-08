@@ -25,6 +25,9 @@ jobs:
         run: pip install tox
       - name: Run tests & pylint
         run: tox
+        env:
+          UNAME: ${{ secrets.UNAME }}
+          PWORD: ${{ secrets.PWORD }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -73,5 +76,7 @@ jobs:
           python-version: ${{ env.python-version }}
       - name: Install tox and any other packages
         run: pip install tox
+      - name: Install types
+        run: mypy --install-types --non-interactive
       - name: Run mypy
         run: tox -e mypy
