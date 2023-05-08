@@ -7,7 +7,7 @@ pyyaml~=6.0 # yaml
 structlog~=22.1.0 # logging
 
 # linting and type checking
-pylint~=2.15.5
+pylint~=2.17.4
 pylint-pydantic~=0.1.4 # Pydantic plugin for pylint
 mypy~=0.982
 yapf~=0.32.0
