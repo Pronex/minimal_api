@@ -14,10 +14,10 @@ import structlog
 log = structlog.get_logger()  # logging
 
 # check environment variables
-log.debug("--------------------")
 log.debug("ENVIRONMENT VARIABLES:")
 for env in os.environ:
     log.debug(f"ENV: {env}={os.environ[env]}")
+log.debug("--------------------")
 
 from config import initialize_global_config, GLOBAL_CONFIG
 
