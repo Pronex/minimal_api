@@ -10,7 +10,7 @@ structlog~=22.1.0 # logging
 pylint~=2.15.5
 pylint-pydantic~=0.1.4 # Pydantic plugin for pylint
 mypy~=0.982
-yapf~=0.32.0
+yapf~=0.33.0
 
 # testing & QA
 pytest~=7.2.0 # testing
