@@ -21,7 +21,7 @@ WORKDIR /src
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # copy the other dependencies file to the working directory
-COPY api.py /src
+COPY api.py config.py config.yml /src
 COPY ./app /src/app
 
 # entrypoint and starting command
