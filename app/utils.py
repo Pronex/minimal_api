@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-minimal_api - utils.py
+minimal_api
 Author: pronex
 """
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-minimal_api - test_app.py
+minimal_api
 Author: pronex
 """
 

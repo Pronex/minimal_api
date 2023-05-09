@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-minimal_api - rt_root.py
+minimal_api
 Author: pronex
 """
 
