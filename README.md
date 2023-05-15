@@ -4,6 +4,14 @@ Minimal template for FastAPI container app on azure.
 
 Built on top of [FastAPI](https://fastapi.tiangolo.com/) on **python 3.10**.
 
+[
+    ![Open in Remote - Containers](
+        https://img.shields.io/static/v1?label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode
+    )
+](
+    https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Pronex/minimal_api
+)
+
 ## API Documentation
 
 Documentation for the API is [automagically](https://fastapi.tiangolo.com/tutorial/first-steps/#interactive-api-docs) served whenever the API is running and can be found at: [http://{api}:{port}/docs](http://{api}:{port}/docs) or [http://{api}:{port}/redoc](http://{api}:{port}/redoc).
@@ -40,7 +48,9 @@ You need to have a set of variables defined in a `terraform.tfvars` file. You ca
 
 ## Build
 
-You should use a virtualenv to install any dependencies locally (for development). You'll find the docs [here](https://docs.python.org/3/library/venv.html) and a quick intro [here](https://realpython.com/python-virtual-environments-a-primer/#what-is-a-virtual-environment). Create a virtual environment with `python -m venv .venv` (Win) and source it with `.\.venv\Scripts\Activate.ps1` (PS) or `python3 -m venv .venv` (linux) and aource it with `source .venv/bin/activate`. You can then install all requirements with `pip install -r requirements.txt`.
+Ideally this can be developed in a devcontainer using VScode. You can use the `devcontainer.json` file included in the repo to get started. You'll need to install the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for VScode. You can then open the project in a container by clicking the green button in the bottom left corner of VScode and selecting "Remote-Containers: Open Folder in Container...". You'll then be prompted to select the folder to open in a container. Select the folder containing this repo and you're good to go.
+
+Otherwise, you should use a virtualenv to install any dependencies locally (for development). You'll find the docs [here](https://docs.python.org/3/library/venv.html) and a quick intro [here](https://realpython.com/python-virtual-environments-a-primer/#what-is-a-virtual-environment). Create a virtual environment with `python -m venv .venv` (Win) and source it with `.\.venv\Scripts\Activate.ps1` (PS) or `python3 -m venv .venv` (linux) and aource it with `source .venv/bin/activate`. You can then install all requirements with `pip install -r requirements.txt`.
 
 To run the app in "debug mode" locally such that the server reloads the at file change, use:
 
@@ -64,13 +74,15 @@ To build and run the container locally do:
     podman rm minimal_api; podman build -t minimal_api:latest .; podman run -it --name minimal_api -p 8080:8080 minimal_api:latest
     ```
 
-You'll then find the application running at [http://localhost:8080/](http://localhost:8080/).
+You'll then find the application running at [http://localhost:8080/](http://localhost:8080/) or similar.
 
 ## Testing & QA
 
 Testing is done with `tox` and `pytest`. You can run the tests with `tox` or `pytest` (or `pytest -v` for more verbosity). You can also run the tests with `pytest --cov=src --cov-report=html` to get a coverage report in html format
 
 Get missing stubs with `mypy --install-types`.
+
+Otherwise the GitHub actions workflow will run the tests and linting on every push to the main branch.
 
 ## Build and push to production
 
