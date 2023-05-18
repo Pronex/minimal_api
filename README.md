@@ -63,16 +63,18 @@ You can also create a FastAPI debugging configuration for VScode with `"module":
 To build and run the container locally do:
 
     ```bash
-    podman build -t minimal_api:latest .
-    podman run -it --name minimal_api -p 8080:8080 minimal_api:latest
-    # podman rm minimal_api # to remove the container if --rm didn't work
+    docker build -t minimal_api:latest .
+    docker run -it --name minimal_api -p 8080:8080 minimal_api:latest
+    # docker rm minimal_api # to remove the container if --rm didn't work
     ```
 
 -> one liner for debugging purposes:
 
     ```bash
-    podman rm minimal_api; podman build -t minimal_api:latest .; podman run -it --name minimal_api -p 8080:8080 minimal_api:latest
+    docker rm minimal_api; docker build -t minimal_api:latest .; docker run -it --name minimal_api -p 8080:8080 minimal_api:latest
     ```
+
+This can also be done using the `docker_run.py` script included in the repo. You can run the script with `python docker_run.py` or `python docker_run.py --help` to get more info.
 
 You'll then find the application running at [http://localhost:8080/](http://localhost:8080/) or similar.
 
@@ -97,7 +99,7 @@ The command to run in production is:
 OR as a container:
 
     ```bash
-    podman run -d --name minimal_api -p 8080:8080 --restart=always minimal_api:latest
+    docker run -d --name minimal_api -p 8080:8080 --restart=always minimal_api:latest
     ```
 
 ... assuming the environment variables are already present.
