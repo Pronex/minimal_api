@@ -29,10 +29,15 @@ variable "acr-minimal-api" {
 }
 
 # secrets
-# variable "some_secret" {
-#   type = string
-#   description = "Some secret value"
-# }
+variable "uname" {
+  type        = string
+  description = "App environment: UNAME"
+}
+
+variable "pword" {
+  type        = string
+  description = "App environment: PWORD"
+}
 
 # tags
 variable "prd_tags" {

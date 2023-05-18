@@ -1,6 +1,6 @@
 # log analytics workspace
 resource "azurerm_log_analytics_workspace" "laws-app" {
-  name                = var.app_name
+  name                = "laws-${var.app_name}"
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = "PerGB2018"

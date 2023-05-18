@@ -70,7 +70,8 @@ resource "azurerm_container_app" "capp-app" {
     external_enabled = true
     target_port      = 8080
     traffic_weight {
-      percentage = 100
+      latest_revision = true
+      percentage      = 100
     }
   }
 
@@ -89,6 +90,14 @@ resource "azurerm_container_app" "capp-app" {
       env {
         name  = "APPINSIGHTS_INSTRUMENTATIONKEY"
         value = module.appinsights.appinsights_instrumentation_key
+      }
+      env {
+        name  = "UNAME"
+        value = var.uname
+      }
+      env {
+        name  = "PWORD"
+        value = var.pword
       }
 
       liveness_probe {

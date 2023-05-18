@@ -13,12 +13,6 @@ import structlog
 
 _logger = structlog.get_logger()  # logging
 
-# check environment variables
-_logger.debug("ENVIRONMENT VARIABLES:")
-for env in os.environ:
-    _logger.debug(f"ENV: {env}={os.environ[env]}")
-_logger.debug("--------------------")
-
 from app.config import initialize_global_config, GLOBAL_CONFIG
 
 from fastapi.testclient import TestClient
