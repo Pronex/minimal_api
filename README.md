@@ -55,6 +55,8 @@ You shouldn't forget to format and validate your code before committing:
     terraform validate
     ```
 
+You can destroy the infrastructure using the following command `terraform destroy`.
+
 You might need to have a set of variables defined in a `terraform.tfvars` or `<name>.auto.tfvars` file. You can also pass variables on the command line with `-var="name=value"`.
 
 ## Build
