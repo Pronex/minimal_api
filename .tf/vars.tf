@@ -1,22 +1,31 @@
 # Type: Terraform Variables
 
 # base variables
+variable "app_name" {
+  type        = string
+  description = "Name of the app (used for naming resources)"
+  default     = "minimal-api"
+}
+
 variable "default_location" {
   type        = string
   default     = "Westeurope"
   description = "Azure Region"
 }
 
-variable "tf_rg" {
+variable "rg-app" {
   type        = string
-  default     = "rg-tfstate"
-  description = "Resource Group name for the terraform state"
+  description = "Resource Group name for resources to be created"
 }
 
-variable "main_rg" {
+variable "rg-acr" {
   type        = string
-  default     = "rg-mini-api"
-  description = "Resource Group name for resources"
+  description = "Resource Group name for Azure Container Registry"
+}
+
+variable "acr-minimal-api" {
+  type        = string
+  description = "Azure Container Registry name"
 }
 
 # secrets
@@ -29,7 +38,7 @@ variable "main_rg" {
 variable "prd_tags" {
   type = map(string)
   default = {
+    "env"         = "prod"
     "application" = "minimal_api"
-    "env"         = "prd"
   }
 }

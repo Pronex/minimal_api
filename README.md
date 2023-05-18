@@ -12,6 +12,18 @@ Built on top of [FastAPI](https://fastapi.tiangolo.com/) on **python 3.10**.
     https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Pronex/minimal_api
 )
 
+Included:
+
+- 💻 boilerplate for FastAPI app
+- 🐳 dockerfile for containerization
+- 🏗️ terraform files for infrastructure -> azure container app
+- 🐈‍⬛ github actions workflow for CI/CD -> QA, TF, CI
+- 📦 VScode devcontainer for development
+- 🪲 VScode debugging configuration for FastAPI
+- 🧪 testing with `tox` and `pytest`
+- 🧹 linting and formatting with `yapf` and `mypy`
+- ☁️ space for your own code
+
 ## API Documentation
 
 Documentation for the API is [automagically](https://fastapi.tiangolo.com/tutorial/first-steps/#interactive-api-docs) served whenever the API is running and can be found at: [http://{api}:{port}/docs](http://{api}:{port}/docs) or [http://{api}:{port}/redoc](http://{api}:{port}/redoc).
