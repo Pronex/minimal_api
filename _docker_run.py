@@ -19,12 +19,12 @@ cfg = load_yaml_config_file()
 
 # implement --help flag
 if "--help" in sys.argv:
-    message = """
+    help_message = """
     Usage: python docker_run.py
     Build docker image and run the app in a docker container.
     Loads environment variables from config.yml file.
     """
-    print(message)
+    print(help_message)
     sys.exit(0)
 
 # compose environment variables for docker run command

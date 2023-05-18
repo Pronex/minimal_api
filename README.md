@@ -21,13 +21,24 @@ Documentation for the API is [automagically](https://fastapi.tiangolo.com/tutori
 Authentication to the API is HTTP BasicAuth defined by environment variables in a `config.yml` file:
 
     ```yaml
-    username: "username"
-    password: "password"
+    uname: "username"
+    pword: "password"
     ```
 
 ## Infrastructure
 
-This repository is built and deployed using [Terraform](https://www.terraform.io/).
+**Requirements:** `tf.env` file with the following variables defined:
+
+    export ARM_CLIENT_ID=appId
+    export ARM_CLIENT_SECRET=password
+    export ARM_SUBSCRIPTION_ID=subscription_id
+    export ARM_TENANT_ID=tenantId
+
+Login with `python _az_login.py` and then `source tf.env`. This will set the environment variables for the current shell, which terraform will need to init.
+
+Alternatively, login to Azure with `az login` and select the correct subscription with `az account set --subscription <subscription_id>`. You should use a service principal for this. You can create one with `az ad sp create-for-rbac --name <name> --role contributor --scopes /subscriptions/<subscription_id>`. You can then login with `az login --service-principal --username <appId> --password <password> --tenant <tenantId>`.
+
+This repository is built and deployed using [Terraform](https://www.terraform.io/). The files are located in the `.tf` folder. Either `cd` into the folder or use the `-chdir=.tf` flag to run the commands from the root of the repo.
 
 You can deploy the infrastructure using the following commands:
 
@@ -44,9 +55,16 @@ You shouldn't forget to format and validate your code before committing:
     terraform validate
     ```
 
-You need to have a set of variables defined in a `terraform.tfvars` file. You can use the `terraform.tfvars.example` file as a template.
+You might need to have a set of variables defined in a `terraform.tfvars` or `<name>.auto.tfvars` file. You can also pass variables on the command line with `-var="name=value"`.
 
 ## Build
+
+**Requirements:** `config.py` (or environment variables) file with *at least* the following variables defined:
+
+        ```python
+        uname = "username"
+        pword = "password"
+        ```
 
 Ideally this can be developed in a devcontainer using VScode. You can use the `devcontainer.json` file included in the repo to get started. You'll need to install the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for VScode. You can then open the project in a container by clicking the green button in the bottom left corner of VScode and selecting "Remote-Containers: Open Folder in Container...". You'll then be prompted to select the folder to open in a container. Select the folder containing this repo and you're good to go.
 

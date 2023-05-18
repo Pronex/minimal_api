@@ -1,23 +1,13 @@
 # terraform main file
 
 # configure azure provider
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 3.11"
-    }
-  }
-
-  backend "azurerm" {
-    resource_group_name  = "rg-raw-terraform_state"
-    storage_account_name = "stacctfstate"
-    container_name       = "tfstate"
-    key                  = "api.tfstate"
-  }
-
-}
-
 provider "azurerm" {
   features {}
+}
+
+# base resources
+# main resource group
+resource "azurerm_resource_group" "rg_main" {
+  name     = var.tf_rg
+  location = var.default_location
 }
