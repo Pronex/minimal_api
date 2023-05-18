@@ -57,7 +57,7 @@ for var_name in ["ARM_SUBSCRIPTION_ID", "ARM_CLIENT_ID", "ARM_CLIENT_SECRET", "A
 os.system("az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID")
 
 # set subscription
-os.system(f"az account set --subscription $ARM_SUBSCRIPTION_ID")
+os.system("az account set --subscription $ARM_SUBSCRIPTION_ID")
 
 # get current subscription
 os.system("az account show --query name")
