@@ -45,7 +45,7 @@ resource "azurerm_user_assigned_identity" "uai-app" {
 
 # role assignment
 resource "azurerm_role_assignment" "ra-app" {
-  scope                = azurerm_resource_group.rg-app.id
+  scope                = data.azurerm_container_registry.acr-minimal-api.id
   role_definition_name = "acrpull"
   principal_id         = azurerm_user_assigned_identity.uai-app.principal_id
   depends_on           = [azurerm_user_assigned_identity.uai-app]
@@ -66,11 +66,6 @@ resource "azurerm_container_app" "capp-app" {
     ]
   }
 
-  secret {
-    name  = "APPINSIGHTS_INSTRUMENTATIONKEY"
-    value = module.appinsights.appinsights_instrumentation_key
-  }
-
   ingress {
     external_enabled = true
     target_port      = 8080
@@ -86,10 +81,15 @@ resource "azurerm_container_app" "capp-app" {
 
   template {
     container {
-      name   = "cntapi"
+      name   = "minimal-api"
       image  = "${data.azurerm_container_registry.acr-minimal-api.login_server}/minimal-api:latest"
       cpu    = 0.25
       memory = "0.5Gi"
+
+      env {
+        name  = "APPINSIGHTS_INSTRUMENTATIONKEY"
+        value = module.appinsights.appinsights_instrumentation_key
+      }
 
       liveness_probe {
         port             = 8080
