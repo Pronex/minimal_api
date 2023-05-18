@@ -44,3 +44,4 @@ jobs:
       - run: |
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:v0.${{ github.run_number }} -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:latest
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:v0.${{ github.run_number }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:latest
