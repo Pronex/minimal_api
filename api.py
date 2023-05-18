@@ -10,12 +10,12 @@ import structlog
 import uvicorn  # ASGI server
 from fastapi import Depends, FastAPI
 
-from config import initialize_global_config, GLOBAL_CONFIG
+from app.config import initialize_global_config, GLOBAL_CONFIG
 
 from app.utils import verify_creds
 from app.routes import rt_root
 
-log = structlog.get_logger()  # logging
+_logger = structlog.get_logger()  # logging
 initialize_global_config()  # initialize global config
 
 # app description

@@ -14,9 +14,9 @@ import yaml
 import structlog
 
 # Bootstrapping problem - we hereby hardcode the default config file name and define that
-# it needs to be located next to this python file
+# it needs to be located in the folder above this python file
 CONFIG_FILE_NAME = "config.yml"
-CONFIG_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), CONFIG_FILE_NAME)
+CONFIG_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../", CONFIG_FILE_NAME)
 
 _logger = structlog.get_logger()  # logging
 

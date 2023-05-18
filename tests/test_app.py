@@ -11,15 +11,15 @@ sys.path.append("..")  # adds higher directory to python modules path
 
 import structlog
 
-log = structlog.get_logger()  # logging
+_logger = structlog.get_logger()  # logging
 
 # check environment variables
-log.debug("ENVIRONMENT VARIABLES:")
+_logger.debug("ENVIRONMENT VARIABLES:")
 for env in os.environ:
-    log.debug(f"ENV: {env}={os.environ[env]}")
-log.debug("--------------------")
+    _logger.debug(f"ENV: {env}={os.environ[env]}")
+_logger.debug("--------------------")
 
-from config import initialize_global_config, GLOBAL_CONFIG
+from app.config import initialize_global_config, GLOBAL_CONFIG
 
 from fastapi.testclient import TestClient
 
@@ -28,7 +28,7 @@ from api import app
 initialize_global_config()  # initialize global config
 
 # check global config
-log.debug(f"GLOBAL_CONFIG: {GLOBAL_CONFIG.__dict__}")
+_logger.debug(f"GLOBAL_CONFIG: {GLOBAL_CONFIG.__dict__}")
 
 # create test client
 client = TestClient(app)
