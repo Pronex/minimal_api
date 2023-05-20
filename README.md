@@ -24,6 +24,15 @@ Included:
 - 🧹 linting and formatting with `yapf` and `mypy`
 - ☁️ space for your own code
 
+**Get started:**
+
+1. Clone the repo
+2. Replace all `*.example` files with the correct names and values for your case
+3. Replace all `minimal_api` with the name of your app and add your own code
+4. Build and run the container locally
+5. Deploy the infrastructure to Azure
+6. Check if the app is running on Azure
+
 ## API Documentation
 
 Documentation for the API is [automagically](https://fastapi.tiangolo.com/tutorial/first-steps/#interactive-api-docs) served whenever the API is running and can be found at: [http://{api}:{port}/docs](http://{api}:{port}/docs) or [http://{api}:{port}/redoc](http://{api}:{port}/redoc).
