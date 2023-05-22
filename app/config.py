@@ -68,9 +68,11 @@ def _str2bool(str_value: str | None) -> bool:
 
 
 def initialize_global_config() -> None:
-    """Initialize the global config from config file and the environment variables.
-    Watch out: This function might exit if not all mandatory config options are set!
     """
+    Initialize the global config from the config file and environment variables.
+    Exit if any mandatory config options are missing.
+    """
+
     # get all attributes that matter in the global config
     config_variable_names: dict[str, type] = {
         a[0]: type(a[1])
@@ -78,30 +80,55 @@ def initialize_global_config() -> None:
         if not a[0].startswith('__') and not a[0].endswith('__')
     }
 
-    # load the default config
-    default_config = load_yaml_config_file()
-    for key, value in default_config.items():
-        if key in config_variable_names.keys():
-            if config_variable_names[key] is bool and isinstance(value, str):
+    # load the default config from a YAML file
+    default_config: dict[str, Any] = load_yaml_config_file()
+
+    # update the global config with values from the default config
+    update_config_from_dict(default_config, config_variable_names)
+
+    # load and update the global config with values from environment variables
+    update_config_from_environment(config_variable_names)
+
+    # check for missing mandatory config options
+    check_mandatory_options(config_variable_names)
+
+
+def update_config_from_dict(config_dict: dict[str, Any], variable_names: dict[str, type]) -> None:
+    """
+    Update the global config with values from a dictionary, based on variable names.
+    """
+    for key, value in config_dict.items():
+        if key in variable_names.keys():
+            if variable_names[key] is bool and isinstance(value, str):
                 setattr(GLOBAL_CONFIG, key, _str2bool(value))
             else:
-                setattr(GLOBAL_CONFIG, key, config_variable_names[key](value))
+                setattr(GLOBAL_CONFIG, key, variable_names[key](value))
 
-    missing: bool = False
-    for item in config_variable_names.keys():
-        # load all configs from environment variables
+
+def update_config_from_environment(variable_names: dict[str, type]) -> None:
+    """
+    Update the global config with values from environment variables, based on variable names.
+    """
+    for item in variable_names.keys():
         if item.upper() in os.environ:
-            if config_variable_names[item] is bool:
+            if variable_names[item] is bool:
                 setattr(GLOBAL_CONFIG, item, _str2bool(os.environ.get(item.upper())))
             else:
-                setattr(GLOBAL_CONFIG, item, config_variable_names[item](os.environ.get(item.upper())))
+                setattr(GLOBAL_CONFIG, item, variable_names[item](os.environ.get(item.upper())))
 
-        # ensure that every config item is defined
+
+def check_mandatory_options(variable_names: dict[str, type]) -> None:
+    """
+    Check if all mandatory config options are defined.
+    Exit if any mandatory option is missing.
+    """
+    missing: bool = False
+    for item in variable_names.keys():
         if getattr(GLOBAL_CONFIG, item) == "":
             _logger.error("Can not find mandatory config option in the config file or the environment variables",
                           option=item)
             missing = True
 
     if missing:
-        _logger.error("Mandatory config option missing - exiting")
+        _logger.error("Mandatory config option(s) missing - exiting")
         sys.exit(1)
