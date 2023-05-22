@@ -41,19 +41,21 @@ Documentation for the API is [automagically](https://fastapi.tiangolo.com/tutori
 
 Authentication to the API is HTTP BasicAuth defined by environment variables in a `config.yml` file:
 
-    ```yaml
-    uname: "username"
-    pword: "password"
-    ```
+```yaml
+uname: "username"
+pword: "password"
+```
 
 ## Infrastructure
 
 **Requirements:** `tf.env` file with the following variables defined:
 
-    export ARM_CLIENT_ID=appId
-    export ARM_CLIENT_SECRET=password
-    export ARM_SUBSCRIPTION_ID=subscription_id
-    export ARM_TENANT_ID=tenantId
+```bash
+export ARM_CLIENT_ID=appId
+export ARM_CLIENT_SECRET=password
+export ARM_SUBSCRIPTION_ID=subscription_id
+export ARM_TENANT_ID=tenantId
+```
 
 Login with `python _az_login.py` and then `source tf.env`. This will set the environment variables for the current shell, which terraform will need to init.
 
@@ -63,18 +65,18 @@ This repository is built and deployed using [Terraform](https://www.terraform.io
 
 You can deploy the infrastructure using the following commands:
 
-    ```bash
-    terraform init
-    terraform plan
-    terraform apply
-    ```
+```bash
+terraform init
+terraform plan
+terraform apply
+```
 
 You shouldn't forget to format and validate your code before committing:
 
-    ```bash
-    terraform fmt
-    terraform validate
-    ```
+```bash
+terraform fmt
+terraform validate
+```
 
 You can destroy the infrastructure using the following command `terraform destroy`.
 
@@ -84,10 +86,10 @@ You might need to have a set of variables defined in a `terraform.tfvars` or `<n
 
 **Requirements:** `config.py` (or environment variables) file with *at least* the following variables defined:
 
-        ```python
-        uname = "username"
-        pword = "password"
-        ```
+```python
+uname = "username"
+pword = "password"
+```
 
 Ideally this can be developed in a devcontainer using VScode. You can use the `devcontainer.json` file included in the repo to get started. You'll need to install the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for VScode. You can then open the project in a container by clicking the green button in the bottom left corner of VScode and selecting "Remote-Containers: Open Folder in Container...". You'll then be prompted to select the folder to open in a container. Select the folder containing this repo and you're good to go.
 
@@ -95,27 +97,27 @@ Otherwise, you should use a virtualenv to install any dependencies locally (for 
 
 To run the app in "debug mode" locally such that the server reloads the at file change, use:
 
-    ```bash
-    uvicorn api:app --port 8080 --reload
-    ```
+```bash
+uvicorn api:app --port 8080 --reload
+```
 
 You can also create a FastAPI debugging configuration for VScode with `"module": "uvicorn", "args": ["api:app", "--port=8080", "--reload"]` or using the `launch.json` file included in the repo.
 
 To build and run the container locally do:
 
-    ```bash
-    docker build -t minimal_api:latest .
-    docker run -it --name minimal_api -p 8080:8080 minimal_api:latest
-    # docker rm minimal_api # to remove the container if --rm didn't work
-    ```
+```bash
+docker build -t minimal_api:latest .
+docker run -it --name minimal_api -p 8080:8080 minimal_api:latest
+# docker rm minimal_api # to remove the container if --rm didn't work
+```
 
 -> one liner for debugging purposes:
 
-    ```bash
-    docker rm minimal_api; docker build -t minimal_api:latest .; docker run -it --name minimal_api -p 8080:8080 minimal_api:latest
-    ```
+```bash
+docker rm minimal_api; docker build -t minimal_api:latest .; docker run -it --name minimal_api -p 8080:8080 minimal_api:latest
+```
 
-This can also be done using the `docker_run.py` script included in the repo. You can run the script with `python docker_run.py` or `python docker_run.py --help` to get more info.
+**NOTE:** You might be missing the necessary env vars. Running can also be done using the `docker_run.py` script included in the repo that adds the environment variables and runs the container. You can run the script with `python docker_run.py` or `python docker_run.py --help` to get more info.
 
 You'll then find the application running at [http://localhost:8080/](http://localhost:8080/) or similar.
 
@@ -133,15 +135,15 @@ To build and push the container to production do a git merge to the branch `main
 
 The command to run in production is:
 
-    ```bash
-    uvicorn api:app --host 0.0.0.0 --port 8080
-    ```
+```bash
+uvicorn api:app --host 0.0.0.0 --port 8080
+```
 
 OR as a container:
 
-    ```bash
-    docker run -d --name minimal_api -p 8080:8080 --restart=always minimal_api:latest
-    ```
+```bash
+docker run -d --name minimal_api -p 8080:8080 --restart=always minimal_api:latest
+```
 
 ... assuming the environment variables are already present.
 
@@ -149,9 +151,9 @@ OR as a container:
 
 The google code style is used for formatting. You can use the following command to format the code:
 
-    ```bash
-    tox -e format
-    ```
+```bash
+tox -e format
+```
 
 ## Maintainers
 
