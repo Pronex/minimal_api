@@ -4,6 +4,9 @@
 # set base image
 FROM python:3.10-slim
 
+# add non-root user
+RUN useradd -m -U -u 1000 -s /bin/bash appuser
+
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -23,6 +26,9 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 # copy the other dependencies file to the working directory
 COPY api.py /src
 COPY ./app /src/app
+
+# set the user
+USER appuser
 
 # entrypoint and starting command
 # --proxy-headers will tell Uvicorn to trust the headers sent by TLS offloading proxy
