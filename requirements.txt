@@ -1,5 +1,5 @@
 # fastAPI
-fastapi~=0.98.0 # FastAPI
+fastapi~=0.99.1 # FastAPI
 uvicorn~=0.22.0 # Uvicorn ASGI server
 httpx~=0.24.1 # HTTP client
 
