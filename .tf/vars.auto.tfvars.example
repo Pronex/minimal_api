@@ -1,0 +1,5 @@
+rg_app          = "rg-minimal-api"
+rg_acr          = "rg-acr"
+acr_minimal_api = "acr"
+uname           = "api-username"
+pword           = "api-password"

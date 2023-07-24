@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Azure
+    runs-on: ubuntu-latest
+    environment: prod_env
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Login to Azure container registry
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      # Build the image and push it to ACR
+      - name: Build the image and push it to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:v0.${{ github.run_number }} -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:latest
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:v0.${{ github.run_number }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:latest
+
+      # Authenticate with the Azure CLI
+      - name: Login via Azure CLI
+        uses: Azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
+      
+      # Update the container app with the new image tag
+      - name: Update the container app with the new image tag
+        run:
+          az containerapp update -n ${{ secrets.VAR_CAPP_NAME }} -g ${{ secrets.TF_VAR_rg_app }} --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/minimal-api:latest --output none
