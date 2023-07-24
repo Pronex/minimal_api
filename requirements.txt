@@ -16,5 +16,5 @@ yapf~=0.40.1 # code formatting
 
 # testing & QA
 pytest~=7.4.0 # testing
-tox~=4.6.3 # testing
+tox~=4.6.4 # testing
 coverage~=7.2.7 # code coverage
