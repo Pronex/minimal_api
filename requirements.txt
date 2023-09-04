@@ -15,6 +15,6 @@ mypy~=1.4 # type checking
 yapf~=0.40.1 # code formatting
 
 # testing & QA
-pytest~=7.4.0 # testing
+pytest~=7.4.1 # testing
 tox~=4.6.4 # testing
 coverage~=7.3.0 # code coverage
