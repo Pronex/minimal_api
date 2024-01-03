@@ -1,7 +1,7 @@
 # fastAPI
 fastapi~=0.104.1 # FastAPI
 uvicorn~=0.23.2 # Uvicorn ASGI server
-httpx~=0.24.1 # HTTP client
+httpx~=0.26.0 # HTTP client
 
 # tools
 pyyaml~=6.0 # yaml
