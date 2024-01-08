@@ -12,7 +12,7 @@ structlog~=23.1.0 # logging
 pylint~=3.0.3
 pylint-pydantic~=0.3.2 # Pydantic plugin for pylint
 mypy~=1.8 # type checking
-yapf~=0.40.1 # code formatting
+yapf~=0.40.2 # code formatting
 
 # testing & QA
 pytest~=7.4.3 # testing
