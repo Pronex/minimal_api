@@ -6,7 +6,7 @@ httpx~=0.26.0 # HTTP client
 # tools
 pyyaml~=6.0 # yaml
 types-pyyaml~=6.0 # yaml types
-structlog~=23.1.0 # logging
+structlog~=24.1.0 # logging
 
 # linting and type checking
 pylint~=3.0.3
