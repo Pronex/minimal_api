@@ -18,3 +18,4 @@ yapf~=0.40.2 # code formatting
 pytest~=8.0.0 # testing
 tox~=4.11.4 # testing
 coverage~=7.4.1 # code coverage
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
