@@ -2,7 +2,7 @@
 # Author: pronex
 
 # set base image
-FROM python:3.13.0b1-slim
+FROM python:3.13.0b3-slim
 
 # add non-root user
 RUN useradd -m -U -u 1000 -s /bin/bash appuser
